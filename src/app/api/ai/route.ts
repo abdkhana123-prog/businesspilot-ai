@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { prompt } = await request.json();
+    const body = await request.json();
+    const prompt = body?.prompt;
 
     if (typeof prompt !== "string" || !prompt.trim()) {
       return NextResponse.json(
@@ -15,7 +16,7 @@ export async function POST(request: Request) {
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "OPENROUTER_API_KEY is missing." },
+        { error: "OPENROUTER_API_KEY is missing in Vercel." },
         { status: 500 }
       );
     }
@@ -36,15 +37,15 @@ export async function POST(request: Request) {
             {
               role: "system",
               content:
-                "You are BusinessPilot AI, a helpful assistant for business owners. Answer the user's exact question clearly and briefly. Do not create a sales proposal unless the user asks for one. Reply in English or Urdu according to the user's language.",
+                "You are a helpful business assistant. Answer the user's exact question directly. Do not write a marketing proposal unless requested. Reply in English or Urdu according to the user's question.",
             },
             {
               role: "user",
               content: prompt.trim( ),
             },
           ],
-          temperature: 0.7,
-          max_tokens: 500,
+          temperature: 0.5,
+          max_tokens: 600,
         }),
       }
     );
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("OpenRouter error:", data);
+      console.error("OpenRouter API error:", data);
 
       return NextResponse.json(
         {
@@ -64,12 +65,34 @@ export async function POST(request: Request) {
       );
     }
 
-    const answer = data?.choices?.[0]?.message?.content?.trim();
+    const message = data?.choices?.[0]?.message;
+
+    let answer = "";
+
+    if (typeof message?.content === "string") {
+      answer = message.content.trim();
+    } else if (Array.isArray(message?.content)) {
+      answer = message.content
+        .map((item: { text?: string }) => item?.text || "")
+        .join("")
+        .trim();
+    } else if (typeof data?.choices?.[0]?.text === "string") {
+      answer = data.choices[0].text.trim();
+    }
+
+    if (!answer && typeof message?.reasoning === "string") {
+      answer = message.reasoning.trim();
+    }
 
     if (!answer) {
+      console.error("OpenRouter empty response:", JSON.stringify(data));
+
       return NextResponse.json(
-        { error: "AI returned an empty answer." },
-        { status: 502 }
+        {
+          error:
+            "The free AI model is temporarily busy. Please try the question again.",
+        },
+        { status: 503 }
       );
     }
 
