@@ -2,97 +2,83 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const prompt = body?.prompt;
+    const { prompt } = await request.json();
 
-    if (typeof prompt !== "string" || prompt.trim().length === 0) {
+    if (typeof prompt !== "string" || !prompt.trim()) {
       return NextResponse.json(
         { error: "Please enter a question." },
         { status: 400 }
       );
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.OPENROUTER_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
-        { error: "GEMINI_API_KEY is missing in environment variables." },
+        { error: "OPENROUTER_API_KEY is missing." },
         { status: 500 }
       );
     }
 
-    const geminiResponse = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
       {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
-          "x-goog-api-key": apiKey,
+          "HTTP-Referer": "https://businesspilot-ai-live.vercel.app",
+          "X-OpenRouter-Title": "BusinessPilot AI",
         },
         body: JSON.stringify({
-          systemInstruction: {
-            parts: [
-              {
-                text:
-                  "You are BusinessPilot AI, a helpful assistant for business owners. " +
-                  "Answer the user's exact question directly, clearly, and briefly. " +
-                  "You can answer general questions, explain business terms, and help with invoices, sales, customers, tasks, and appointments. " +
-                  "Do not write a sales proposal unless the user specifically asks for one. " +
-                  "You may answer in English or Urdu according to the user's language.",
-              },
-            ],
-          },
-          contents: [
+          model: "openrouter/free",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are BusinessPilot AI, a helpful assistant for business owners. Answer the user's exact question clearly and briefly. Do not create a sales proposal unless the user asks for one. Reply in English or Urdu according to the user's language.",
+            },
             {
               role: "user",
-              parts: [
-                {
-                  text: prompt.trim( ),
-                },
-              ],
+              content: prompt.trim( ),
             },
           ],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 500,
-          },
+          temperature: 0.7,
+          max_tokens: 500,
         }),
       }
     );
 
-    const data = await geminiResponse.json();
+    const data = await response.json();
 
-    if (!geminiResponse.ok) {
-      console.error("Gemini API error:", data);
+    if (!response.ok) {
+      console.error("OpenRouter error:", data);
 
       return NextResponse.json(
         {
           error:
             data?.error?.message ||
-            "Gemini request failed. Check the model name, API key, and quota.",
+            "OpenRouter request failed. Try again later.",
         },
         { status: 502 }
       );
     }
 
-    const answer = data?.candidates?.[0]?.content?.parts
-      ?.map((part: { text?: string }) => part.text || "")
-      .join("")
-      .trim();
+    const answer = data?.choices?.[0]?.message?.content?.trim();
 
     if (!answer) {
       return NextResponse.json(
-        { error: "Gemini returned an empty answer." },
+        { error: "AI returned an empty answer." },
         { status: 502 }
       );
     }
 
     return NextResponse.json({ text: answer });
   } catch (error) {
-    console.error("Chat API error:", error);
+    console.error("AI route error:", error);
 
     return NextResponse.json(
-      { error: "The AI service could not be reached." },
+      { error: "AI service could not be reached." },
       { status: 500 }
     );
   }
