@@ -2,7 +2,6 @@
 
 import { FormEvent, useState } from "react";
 import { supabase } from "@/lib/supabase";
-import Image from "next/image"; // Added back just in case you need it later
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -62,40 +61,41 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center lg:justify-end overflow-hidden bg-[#050816] px-4 sm:px-8 lg:px-24">
+    <main className="relative flex min-h-[100dvh] w-full items-center justify-center lg:justify-end px-4 py-10 sm:px-8 lg:px-24">
       
-      {/* 1. EXACT FULL SCREEN BACKGROUND IMAGE */}
+      {/* 1. FIXED FULL SCREEN BACKGROUND IMAGE */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
             "url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663909266789/fijqqcKOBuSsLxti.png')",
         }}
       />
 
-      {/* 2. DARK OVERLAY FOR READABILITY ON RIGHT SIDE */}
-      <div className="absolute inset-0 z-0 bg-black/30 lg:bg-gradient-to-l lg:from-[#050816]/90 lg:to-transparent" />
+      {/* 2. OVERLAY (Mobile ke liye light kar diya hai bg-black/10 taake image clear dikhe) */}
+      <div className="fixed inset-0 z-0 bg-black/10 lg:bg-gradient-to-l lg:from-[#050816]/90 lg:to-transparent" />
 
       {/* 3. FLOATING GLASSMORPHISM FORM */}
-      <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/10 bg-[#050816]/40 p-6 shadow-2xl backdrop-blur-xl sm:p-10">
+      {/* Yahan bg-black/20 aur backdrop-blur-md kiya hai taake mobile par peeche ki image saaf nazar aaye */}
+      <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/20 bg-black/20 lg:bg-[#050816]/50 p-6 shadow-2xl backdrop-blur-md sm:p-10 my-8">
         
         {/* Mobile View Logo */}
-        <div className="mb-8 lg:hidden">
+        <div className="mb-6 lg:hidden">
           <BrandLogo />
         </div>
 
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md">
             Create your workspace
           </h2>
-          <p className="mt-3 text-sm leading-6 text-slate-300">
+          <p className="mt-3 text-sm leading-6 text-slate-200 drop-shadow-md">
             Create your secure BusinessPilot account in less than a minute.
           </p>
         </div>
 
-        <form onSubmit={handleSignup} className="space-y-5">
+        <form onSubmit={handleSignup} className="space-y-4 sm:space-y-5">
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-200">
+            <label className="mb-2 block text-sm font-medium text-slate-100 drop-shadow-md">
               Your name
             </label>
             <input
@@ -104,12 +104,12 @@ export default function SignupPage() {
               onChange={(event) => setName(event.target.value)}
               placeholder="Ali Khan"
               required
-              className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-md transition"
+              className="w-full rounded-xl border border-white/30 bg-black/30 px-4 py-3 sm:py-3.5 text-sm text-white outline-none placeholder:text-slate-300 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-sm transition"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-200">
+            <label className="mb-2 block text-sm font-medium text-slate-100 drop-shadow-md">
               Work email
             </label>
             <input
@@ -119,12 +119,12 @@ export default function SignupPage() {
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@company.com"
               required
-              className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-md transition"
+              className="w-full rounded-xl border border-white/30 bg-black/30 px-4 py-3 sm:py-3.5 text-sm text-white outline-none placeholder:text-slate-300 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-sm transition"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-200">
+            <label className="mb-2 block text-sm font-medium text-slate-100 drop-shadow-md">
               Password
             </label>
             <div className="relative">
@@ -135,12 +135,12 @@ export default function SignupPage() {
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="At least 6 characters"
                 required
-                className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3.5 pr-20 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-md transition"
+                className="w-full rounded-xl border border-white/30 bg-black/30 px-4 py-3 sm:py-3.5 pr-20 text-sm text-white outline-none placeholder:text-slate-300 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-sm transition"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-cyan-400 hover:text-cyan-200"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-cyan-300 hover:text-cyan-100 drop-shadow-md"
               >
                 {showPassword ? "Hide" : "Show"}
               </button>
@@ -148,7 +148,7 @@ export default function SignupPage() {
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-200">
+            <label className="mb-2 block text-sm font-medium text-slate-100 drop-shadow-md">
               Confirm password
             </label>
             <input
@@ -158,7 +158,7 @@ export default function SignupPage() {
               onChange={(event) => setConfirmPassword(event.target.value)}
               placeholder="Repeat your password"
               required
-              className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3.5 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-md transition"
+              className="w-full rounded-xl border border-white/30 bg-black/30 px-4 py-3 sm:py-3.5 text-sm text-white outline-none placeholder:text-slate-300 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 backdrop-blur-sm transition"
             />
           </div>
 
@@ -171,29 +171,29 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full rounded-xl bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-5 py-4 font-bold text-white shadow-xl shadow-blue-500/20 transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-4 w-full rounded-xl bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-5 py-3.5 sm:py-4 font-bold text-white shadow-xl shadow-blue-500/20 transition hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "Creating workspace..." : "Create free workspace"}
           </button>
         </form>
 
-        <div className="my-6 flex items-center gap-3">
-          <div className="h-px flex-1 bg-white/10" />
-          <span className="text-[10px] font-bold tracking-[0.25em] text-slate-400">
+        <div className="my-5 sm:my-6 flex items-center gap-3">
+          <div className="h-px flex-1 bg-white/20" />
+          <span className="text-[10px] font-bold tracking-[0.25em] text-slate-200 drop-shadow-md">
             ALREADY A MEMBER?
           </span>
-          <div className="h-px flex-1 bg-white/10" />
+          <div className="h-px flex-1 bg-white/20" />
         </div>
 
         <a
           href="/login"
-          className="block w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3.5 text-center text-sm font-semibold text-slate-300 backdrop-blur-sm transition hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-100"
+          className="block w-full rounded-xl border border-white/30 bg-white/10 px-5 py-3.5 text-center text-sm font-semibold text-slate-100 backdrop-blur-sm transition hover:border-cyan-400/50 hover:bg-cyan-400/20 hover:text-white"
         >
           Sign in to existing account
         </a>
       </div>
       
-      {/* Hidden container to keep your original FeatureCards in the code without ruining the UI */}
+      {/* Hidden Feature Cards */}
       <div className="hidden">
         <FeatureCard title="Smart CRM" text="Never miss an opportunity" />
         <FeatureCard title="Secure Data" text="Private workspace isolation" />
@@ -205,17 +205,15 @@ export default function SignupPage() {
   );
 }
 
-// AAPKE ORIGINAL COMPONENTS (Code poora rakhne ke liye yahan add kar diye hain)
-
 function BrandLogo() {
   return (
     <div className="flex items-center gap-3">
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-300 to-blue-600 text-xl font-black text-slate-950">
+      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br from-cyan-300 to-blue-600 text-lg sm:text-xl font-black text-slate-950">
         B
       </div>
       <div>
-        <p className="text-xl font-bold text-white">BusinessPilot</p>
-        <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-300">
+        <p className="text-lg sm:text-xl font-bold text-white drop-shadow-md">BusinessPilot</p>
+        <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] text-cyan-300 drop-shadow-md">
           AI workspace
         </p>
       </div>
