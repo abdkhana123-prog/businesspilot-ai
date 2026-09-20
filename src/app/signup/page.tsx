@@ -55,19 +55,35 @@ export default function SignupPage() {
     }
 
     setMessage(
-      "Account created. Check your email to confirm your account, then log in.",
+      "Account created successfully. You can now log in to your account.",
     );
     setLoading(false);
   }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#050816] text-white">
+      {/* Direct signup background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{
+          backgroundImage:
+            "url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663909266789/fijqqcKOBuSsLxti.png' )",
+        }}
+      />
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-[#050816]/75" />
+
+      {/* Blue and purple glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(37,99,235,0.28),transparent_32%),radial-gradient(circle_at_85%_15%,rgba(124,58,237,0.25),transparent_30%),radial-gradient(circle_at_65%_90%,rgba(6,182,212,0.18),transparent_30%)]" />
 
+      {/* Background grid */}
       <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:64px_64px]" />
 
-      <div className="relative mx-auto flex min-h-screen max-w-[1500px] items-center px-5 py-8 sm:px-8 lg:px-12">
+      {/* Main content */}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-5 py-8 sm:px-8 lg:px-12">
         <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          {/* Left information section */}
           <section className="hidden lg:block">
             <BrandLogo />
 
@@ -78,15 +94,15 @@ export default function SignupPage() {
               </div>
 
               <h1 className="mt-6 text-6xl font-black leading-[1.05] tracking-tight">
-                Build a better business with{" "}
+                Make every part of your business work{" "}
                 <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
-                  one intelligent workspace.
+                  smarter.
                 </span>
               </h1>
 
-              <p className="mt-7 max-w-xl text-lg leading-8 text-slate-400">
-                Bring sales, customers, tasks, invoices, team
-                operations, and reports together in BusinessPilot AI.
+              <p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">
+                BusinessPilot brings your leads, customers, tasks, invoices,
+                reports, and team operations into one intelligent workspace.
               </p>
 
               <div className="mt-12 grid max-w-xl grid-cols-2 gap-4">
@@ -113,29 +129,30 @@ export default function SignupPage() {
             </div>
           </section>
 
+          {/* Signup form section */}
           <section className="flex justify-center">
             <div className="w-full max-w-md">
               <div className="mb-8 lg:hidden">
                 <BrandLogo />
               </div>
 
-              <div className="rounded-[2rem] border border-white/10 bg-white/[0.07] p-6 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:p-9">
+              <div className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:p-9">
                 <div className="mb-8">
                   <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-300 to-blue-600 text-xl font-black text-slate-950">
-                    +
+                    B
                   </div>
 
                   <p className="text-sm font-semibold text-cyan-300">
-                    Create your workspace
+                    BusinessPilot AI
                   </p>
 
                   <h2 className="mt-2 text-3xl font-bold">
-                    Start building smarter
+                    Create your account
                   </h2>
 
                   <p className="mt-3 text-sm leading-6 text-slate-400">
-                    Create your secure BusinessPilot account in less
-                    than a minute.
+                    Create your secure BusinessPilot workspace in less than a
+                    minute.
                   </p>
                 </div>
 
@@ -155,7 +172,7 @@ export default function SignupPage() {
                       placeholder="Ali Khan"
                       autoComplete="name"
                       required
-                      className="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
+                      className="w-full rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3.5 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
                     />
                   </div>
 
@@ -175,7 +192,7 @@ export default function SignupPage() {
                       placeholder="you@company.com"
                       autoComplete="email"
                       required
-                      className="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
+                      className="w-full rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3.5 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
                     />
                   </div>
 
@@ -198,7 +215,7 @@ export default function SignupPage() {
                         placeholder="At least 6 characters"
                         autoComplete="new-password"
                         required
-                        className="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3.5 pr-20 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
+                        className="w-full rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3.5 pr-20 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
                       />
 
                       <button
@@ -231,7 +248,7 @@ export default function SignupPage() {
                       placeholder="Repeat your password"
                       autoComplete="new-password"
                       required
-                      className="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3.5 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
+                      className="w-full rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3.5 text-sm outline-none placeholder:text-slate-600 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/10"
                     />
                   </div>
 
@@ -246,15 +263,19 @@ export default function SignupPage() {
                     disabled={loading}
                     className="w-full rounded-xl bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-500 px-5 py-4 font-bold text-slate-950 shadow-xl shadow-blue-950/30 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {loading ? "Creating workspace..." : "Create free workspace"}
+                    {loading
+                      ? "Creating workspace..."
+                      : "Create free workspace"}
                   </button>
                 </form>
 
                 <div className="my-7 flex items-center gap-3">
                   <div className="h-px flex-1 bg-white/10" />
+
                   <span className="text-[10px] font-semibold tracking-[0.25em] text-slate-600">
                     ALREADY A MEMBER?
                   </span>
+
                   <div className="h-px flex-1 bg-white/10" />
                 </div>
 
@@ -266,9 +287,9 @@ export default function SignupPage() {
                 </a>
               </div>
 
-              <p className="mt-6 text-center text-xs leading-5 text-slate-600">
-                Your data is protected with Supabase authentication
-                and workspace-level security.
+              <p className="mt-6 text-center text-xs leading-5 text-slate-500">
+                Your data is protected with Supabase authentication and
+                workspace-level security.
               </p>
             </div>
           </section>
@@ -286,7 +307,8 @@ function BrandLogo() {
       </div>
 
       <div>
-        <p className="text-xl font-bold">BusinessPilot</p>
+        <p className="text-xl font-bold">BusinessPilot AI</p>
+
         <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-300">
           AI workspace
         </p>
@@ -303,8 +325,9 @@ function FeatureCard({
   text: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm">
       <p className="font-semibold">{title}</p>
+
       <p className="mt-1 text-xs leading-5 text-slate-400">{text}</p>
     </div>
   );
