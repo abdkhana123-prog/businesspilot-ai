@@ -3,7 +3,10 @@
 import { FormEvent, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-export default function SignupPage() {
+const backgroundImage =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663909266789/hVBICizaEhuJSkUJ.png";
+
+export default function SignupPage( ) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,41 +57,33 @@ export default function SignupPage() {
       return;
     }
 
-    setMessage(
-      "Account created successfully. You can now log in to your account.",
-    );
+    setMessage("Account created successfully. You can now log in.");
     setLoading(false);
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#050816] text-white">
-      {/* Direct signup background image */}
+    <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
+      {/* Clean image: no written text inside the image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-        style={{
-          backgroundImage:
-            "url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663909266789/fijqqcKOBuSsLxti.png' )",
-        }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-65"
+        style={{ backgroundImage: `url("${backgroundImage}")` }}
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-[#050816]/75" />
+      <div className="absolute inset-0 bg-[#030712]/55" />
 
-      {/* Blue and purple glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(37,99,235,0.28),transparent_32%),radial-gradient(circle_at_85%_15%,rgba(124,58,237,0.25),transparent_30%),radial-gradient(circle_at_65%_90%,rgba(6,182,212,0.18),transparent_30%)]" />
-
-      {/* Background grid */}
-      <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:64px_64px]" />
+      {/* Attractive blue glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_25%,rgba(14,165,233,0.18),transparent_30%),radial-gradient(circle_at_15%_70%,rgba(37,99,235,0.16),transparent_32%)]" />
 
       {/* Main content */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] items-center px-5 py-8 sm:px-8 lg:px-12">
         <div className="grid w-full gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          {/* Left information section */}
+          {/* Left text */}
           <section className="hidden lg:block">
             <BrandLogo />
 
-            <div className="mt-24 max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
+            <div className="mt-20 max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300 backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full bg-emerald-400" />
                 Start your smarter workspace
               </div>
@@ -105,22 +100,19 @@ export default function SignupPage() {
                 reports, and team operations into one intelligent workspace.
               </p>
 
-              <div className="mt-12 grid max-w-xl grid-cols-2 gap-4">
+              <div className="mt-10 grid max-w-xl grid-cols-2 gap-4">
                 <FeatureCard
                   title="Smart CRM"
                   text="Never miss an opportunity"
                 />
-
                 <FeatureCard
                   title="Secure Data"
                   text="Private workspace isolation"
                 />
-
                 <FeatureCard
                   title="AI Reports"
                   text="Know what needs attention"
                 />
-
                 <FeatureCard
                   title="Team Tools"
                   text="Run daily operations better"
@@ -129,14 +121,14 @@ export default function SignupPage() {
             </div>
           </section>
 
-          {/* Signup form section */}
+          {/* Signup form */}
           <section className="flex justify-center">
             <div className="w-full max-w-md">
               <div className="mb-8 lg:hidden">
                 <BrandLogo />
               </div>
 
-              <div className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:p-9">
+              <div className="rounded-[2rem] border border-white/15 bg-slate-950/85 p-6 shadow-2xl shadow-black/70 backdrop-blur-xl sm:p-9">
                 <div className="mb-8">
                   <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-300 to-blue-600 text-xl font-black text-slate-950">
                     B
@@ -308,7 +300,6 @@ function BrandLogo() {
 
       <div>
         <p className="text-xl font-bold">BusinessPilot AI</p>
-
         <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-300">
           AI workspace
         </p>
@@ -325,9 +316,8 @@ function FeatureCard({
   text: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-4 backdrop-blur-md">
       <p className="font-semibold">{title}</p>
-
       <p className="mt-1 text-xs leading-5 text-slate-400">{text}</p>
     </div>
   );
