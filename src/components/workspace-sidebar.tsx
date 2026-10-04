@@ -33,7 +33,7 @@ const navigation = [
       { label: "Invoices", href: "/invoices", icon: "$" },
       { label: "Expenses", href: "/expenses", icon: "↘" },
       { label: "Salary", href: "/salary", icon: "₿" },
-      { label: "Attendance", href: "/attendance", icon: "◫" },
+      { label: "Attendance", href: "/attendence", icon: "◫" },
     ],
   },
   {
