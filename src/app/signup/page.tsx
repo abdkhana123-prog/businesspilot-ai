@@ -34,14 +34,16 @@ export default function SignupPage() {
     setMessage("");
 
     const { data, error } = await supabase.auth.signUp({
-      email: email.trim(),
-      password,
-      options: {
-        data: {
-          full_name: name.trim(),
-        },
-      },
-    });
+  email: email.trim(),
+  password,
+  options: {
+    emailRedirectTo: `${window.location.origin}/login`,
+    data: {
+      full_name: name.trim(),
+    },
+  },
+});
+
 
     if (error) {
       setMessage(error.message);
