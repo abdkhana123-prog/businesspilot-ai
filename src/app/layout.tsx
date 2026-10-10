@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthGate from "@/components/auth-gate";
 import WorkspaceShell from "@/components/workspace-shell";
+import "./globals.css";
+import "./dashboard-fx.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,3 +40,4 @@ export default function RootLayout({
     </html>
   );
 }
+

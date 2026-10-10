@@ -24,3 +24,109 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* DashboardFX: add this file to app/globals.css or import it once globally. */
+
+.dashboard-fx-scope {
+  --fx-pointer-x: 50vw;
+  --fx-pointer-y: 50vh;
+  --fx-scroll: 0px;
+  --fx-scroll-velocity: 0;
+  isolation: isolate;
+}
+
+.dashboard-fx-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+}
+
+.dashboard-fx-scope > .relative,
+.dashboard-fx-scope > :not(.dashboard-fx-canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-fx-enabled .fx-reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.985);
+  filter: blur(8px);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--fx-delay, 0ms);
+}
+
+.dashboard-fx-enabled .fx-reveal.fx-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.dashboard-fx-enabled .fx-magnetic {
+  --fx-rx: 0deg;
+  --fx-ry: 0deg;
+  --fx-scale: 1;
+  --fx-lift: 0px;
+  transform: perspective(1000px) translate3d(0, var(--fx-lift), 0)
+    rotateX(var(--fx-rx)) rotateY(var(--fx-ry)) scale(var(--fx-scale));
+  transform-origin: center;
+  will-change: transform, box-shadow;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 420ms ease,
+    background-color 420ms ease,
+    box-shadow 420ms ease;
+}
+
+.dashboard-fx-enabled .fx-magnetic:hover {
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(103, 232, 249, 0.1),
+    0 0 38px rgba(34, 211, 238, 0.08);
+}
+
+.dashboard-fx-enabled .fx-magnetic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--fx-local-x, 50%) var(--fx-local-y, 50%),
+    rgba(255, 255, 255, 0.11),
+    transparent 55%
+  );
+  transition: opacity 300ms ease;
+}
+
+.dashboard-fx-enabled .fx-magnetic:hover::after {
+  opacity: 1;
+}
+
+.dashboard-fx-enabled a,
+.dashboard-fx-enabled button,
+.dashboard-fx-enabled select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-fx-canvas {
+    display: none;
+  }
+
+  .dashboard-fx-enabled .fx-reveal,
+  .dashboard-fx-enabled .fx-reveal.fx-visible,
+  .dashboard-fx-enabled .fx-magnetic {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}

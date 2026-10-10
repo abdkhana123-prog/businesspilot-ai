@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import DashboardFX from "@/components/DashboardFX";
 import { getMyWorkspaceId } from "@/lib/workspace";
 import {
   Area,
@@ -275,6 +276,7 @@ export default function DashboardPage() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#050816] text-white">
+      <DashboardFX />
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(6,182,212,0.14),transparent_25%),radial-gradient(circle_at_90%_0%,rgba(124,58,237,0.16),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-[1600px] px-4 py-6 sm:px-7 lg:px-10">
