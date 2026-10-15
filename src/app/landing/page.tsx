@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ThreeBackground from "@/components/ThreeBackground";
 
 export default function LandingPage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">(
@@ -8,8 +9,40 @@ export default function LandingPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#050816] text-white selection:bg-cyan-500 selection:text-black">
+          
+
+<div className="relative min-h-screen overflow-hidden bg-[#090909] text-white selection:bg-white selection:text-black">
+      {/* Dark metallic full-page background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-0 overflow-hidden bg-[#090909]"
+      >
+        {/* Soft metallic light at the top */}
+        <div className="absolute -left-[15%] -top-[35%] h-[90vh] w-[85vw] rounded-full bg-[radial-gradient(ellipse,rgba(255,255,255,0.16)_0%,rgba(255,255,255,0.06)_24%,transparent_68%)] blur-[70px]" />
+
+        {/* Bright white glow on the upper-right */}
+        <div className="absolute -right-[18%] -top-[22%] h-[75vh] w-[70vw] rounded-full bg-[radial-gradient(ellipse,rgba(255,255,255,0.2)_0%,rgba(200,200,200,0.07)_30%,transparent_70%)] blur-[65px]" />
+
+        {/* Long diagonal silver beam */}
+        <div className="absolute -left-[25%] top-[8%] h-24 w-[155%] rotate-[-25deg] bg-gradient-to-r from-transparent via-white/[0.12] to-transparent blur-[28px]" />
+
+        {/* Second weaker diagonal beam */}
+        <div className="absolute -left-[20%] top-[38%] h-16 w-[140%] rotate-[-25deg] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent blur-[32px]" />
+
+        {/* Dark center layer keeps text readable */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.03)_0%,rgba(0,0,0,0.28)_62%,rgba(0,0,0,0.72)_100%)]" />
+
+        {/* Subtle black vignette around edges */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.58)_100%)]" />
+
+        {/* Very subtle diagonal texture */}
+        <div className="absolute inset-0 opacity-[0.035] [background-image:repeating-linear-gradient(125deg,rgba(255,255,255,0.8)_0,rgba(255,255,255,0.8)_1px,transparent_1px,transparent_9px)]" />
+      </div>
+
       {/* Background glow */}
+            {/* Free 3D-style floating objects */}
+      
+
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(6,182,212,0.15),transparent_35%),radial-gradient(circle_at_80%_80%,rgba(124,58,237,0.15),transparent_35%)]" />
 
       {/* Navbar */}

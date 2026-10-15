@@ -10,6 +10,9 @@ import {
 import { supabase } from "@/lib/supabase";
 import { getMyWorkspaceId } from "@/lib/workspace";
 import BrandLogo from "@/components/brand-logo";
+import HomeFX from "@/components/HomeFX";
+import ThreeBackground from "@/components/ThreeBackground";
+
 
 type Message = {
   id: string;
@@ -789,14 +792,16 @@ The expense was saved in Supabase, but the Google Sheets backup failed.`;
 
   const showWelcome = messages.length <= 1;
 
-  return (
-    <main className="min-h-screen bg-[#050816] text-white">
-      <div className="flex min-h-screen">
-        <aside
-          className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-white/10 bg-[#08111f]/95 p-4 backdrop-blur-xl transition-transform lg:static lg:translate-x-0 ${
-            historyOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
+return (
+  <main className="min-h-screen bg-[#050816] text-white">
+    <HomeFX />
+    <div className="flex min-h-screen">
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-white/10 bg-[#08111f]/95 p-4 backdrop-blur-xl transition-transform lg:static lg:translate-x-0 ${
+          historyOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+
           <div className="flex items-center justify-between">
             <div>
               <p className="font-bold">Conversations</p>

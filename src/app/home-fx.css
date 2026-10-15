@@ -1,0 +1,109 @@
+/* Home page video-style motion: no particles, dots or generated symbols. */
+
+.home-fx-enabled {
+  perspective: 1500px;
+}
+
+.home-fx-enabled .home-fx-card {
+  --home-fx-rx: 0deg;
+  --home-fx-ry: 0deg;
+  --home-fx-scale: 1;
+  --home-fx-z: 0px;
+  opacity: 0;
+  filter: blur(10px) saturate(0.8);
+  transform: perspective(1300px)
+    translate3d(0, 48px, 0)
+    translateZ(var(--home-fx-z))
+    rotateX(24deg)
+    rotateY(var(--home-fx-entry-y))
+    rotateZ(var(--home-fx-entry-z))
+    scale(0.94);
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 820ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 420ms ease;
+  transition-delay: var(--home-fx-delay, 0ms);
+}
+
+.home-fx-enabled .home-fx-card.home-fx-visible {
+  opacity: 1;
+  filter: blur(0) saturate(1);
+  transform: perspective(1300px)
+    translate3d(0, 0, var(--home-fx-z))
+    rotateX(var(--home-fx-rx))
+    rotateY(var(--home-fx-ry))
+    rotateZ(0deg)
+    scale(var(--home-fx-scale));
+}
+
+.home-fx-enabled .home-fx-card.home-fx-visible:hover {
+  z-index: 30;
+  border-color: rgba(103, 232, 249, 0.34) !important;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(103, 232, 249, 0.14),
+    0 0 55px rgba(34, 211, 238, 0.16);
+}
+
+.home-fx-enabled .home-fx-card.home-fx-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--home-fx-light-x, 50%) var(--home-fx-light-y, 50%),
+    rgba(255, 255, 255, 0.14),
+    rgba(34, 211, 238, 0.04) 28%,
+    transparent 68%
+  );
+  transition: opacity 300ms ease;
+}
+
+.home-fx-enabled .home-fx-card.home-fx-visible:hover::after {
+  opacity: 1;
+}
+
+.home-fx-enabled .home-fx-card.home-fx-visible > * {
+  animation: home-fx-content-arrive 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--home-fx-delay, 0ms) + 170ms);
+}
+
+@keyframes home-fx-content-arrive {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-fx-enabled .home-fx-card {
+    transform: perspective(900px) translate3d(0, 30px, 0) rotateX(15deg) scale(0.97);
+  }
+
+  .home-fx-enabled .home-fx-card.home-fx-visible {
+    transform: perspective(900px) translate3d(0, 0, var(--home-fx-z)) rotateX(var(--home-fx-rx)) rotateY(var(--home-fx-ry)) scale(var(--home-fx-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-fx-enabled .home-fx-card,
+  .home-fx-enabled .home-fx-card.home-fx-visible,
+  .home-fx-enabled .home-fx-card.home-fx-visible > * {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+}

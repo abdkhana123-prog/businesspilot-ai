@@ -5,6 +5,9 @@ import AuthGate from "@/components/auth-gate";
 import WorkspaceShell from "@/components/workspace-shell";
 import "./globals.css";
 import "./dashboard-fx.css";
+import "./home-fx.css";
+
+import "./home-fx.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
